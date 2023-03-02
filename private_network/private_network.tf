@@ -8,7 +8,7 @@
 # OVH_CONSUMER_KEY
 # The following is required specifically for this script:
 # TF_VAR_OVH_PUBLIC_CLOUD_PROJECT_ID that shall be filled with your public cloud project id or it will be requested on script startup
-# TF_VAR_VRACK_ID with a vrack id to wich the cloud project will be attached
+# TF_VAR_VRACK_ID with a vrack id to which the cloud project will be attached or it will be requested on script startup
 ########################################################################################
 
 
@@ -80,7 +80,7 @@ resource "ovh_cloud_project_user" "user" {
 #     Network
 ########################################################################################
 resource "ovh_vrack_cloudproject" "vcp" {
-  service_name = "pn-1085543"
+  service_name = var.vrack_id
   project_id   = var.ovh_public_cloud_project_id
 }
 
