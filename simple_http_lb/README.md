@@ -1,6 +1,6 @@
 # Description 
 
-** This simple HTTP load balancer does not use HTTPS which is standard nowadays. This choice was made to simplify this sample. If you need an HTTPS, please open an issue **
+**This simple HTTP load balancer does not use HTTPS which is standard nowadays. This choice was made to simplify this sample. If you need an HTTPS, please open an issue**
 
 This example creates:
 - an openstack user that will be used to create the whole infrastructure
