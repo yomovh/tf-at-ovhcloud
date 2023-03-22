@@ -8,3 +8,5 @@ This example creates:
 - a Floating IP and a virtual router (that is used a Public Gateway to manage egress & ingress  from / to the private network)
 - an HTTP load balancer
 - 2 HTTP servers (the number of HTTP server can changed using the `instance_nb` variable) 
+
+The output of the `terraform apply` will provide the public ip of your load balancer. Open it in a browser and hit reload to see the round robin in action !
