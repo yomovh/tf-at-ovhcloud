@@ -13,3 +13,8 @@ export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
 # Example description
 This example creates an S3 user to be able to have access & secret key to configure Hashicorp AWS provider. 
 Then it creates a bucket. 
+
+# Update region / storage class
+This [page](https://help.ovhcloud.com/csm/en-ie-public-cloud-storage-s3-location?id=kb_article_view&sysparm_article=KB0047393) provides an up to date lists of regions and endpoints for S3 object storage. 
+
+According to your choice, update the `region` and `s3_endpoint` variables.
