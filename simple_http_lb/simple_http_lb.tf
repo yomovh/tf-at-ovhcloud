@@ -162,8 +162,6 @@ resource "openstack_networking_floatingip_associate_v2" "association" {
 ########################################################################################
 resource "openstack_lb_loadbalancer_v2" "tf_lb" {
   name        = "terraform_lb"
-  # I needed to go in the GUI to find the  UUID small flavor
-  flavor_id = "2d4bc92c-38fc-4b50-9484-8351ab0c4e69"
   vip_network_id  = "${openstack_networking_network_v2.tf_lb_network.id}"
   vip_subnet_id = "${openstack_networking_subnet_v2.tf_lb_subnet.id}"
 }
