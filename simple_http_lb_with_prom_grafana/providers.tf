@@ -7,11 +7,11 @@ required_version    = ">= 0.14.0" # Takes into account Terraform versions from 0
   required_providers {
     openstack = {
       source  = "terraform-provider-openstack/openstack"
-      version = "~> 1.50.0"
+      version = "~> 1.51.1"
     }
     ovh = {
       source  = "ovh/ovh"
-      version = "~> 0.30.0"
+      version = "~> 0.31.0"
     }
     grafana = {
       source ="grafana/grafana"
@@ -19,6 +19,10 @@ required_version    = ">= 0.14.0" # Takes into account Terraform versions from 0
     }
     dns = {
       version ="~> 3.3.2"
+    }
+    acme = {
+      source  = "vancluever/acme"
+      version = "~> 2.0"
     }
   }
 }
@@ -42,3 +46,16 @@ provider "grafana" {
   org_id = "3"
   auth="${ovh_cloud_project_database_user.avnadmin.name}:${ovh_cloud_project_database_user.avnadmin.password}"
 }
+
+provider "acme" {
+  server_url = "https://acme-v02.api.letsencrypt.org/directory"
+}
+
+########################################################################################
+#     User
+########################################################################################
+resource "ovh_cloud_project_user" "user" {
+  service_name = var.ovh_public_cloud_project_id
+  description = "User created by terraform loadbalancer script"
+  role_name = "administrator"
+} 

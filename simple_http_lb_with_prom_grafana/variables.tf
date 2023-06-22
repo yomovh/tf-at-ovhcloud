@@ -10,6 +10,17 @@ variable openstack_region {
   default     = "GRA9"
 }
 
+variable dns_subdomain {
+  type        = string
+  description = "the subdomain below  the zone"
+  default     = "lbdemo"
+}
+
+variable dns_zone{
+  type = string
+  description = "the zone that will be used to host the sub domain"
+}
+
 variable resource_prefix {
   type        = string
   description = "the prefix that is used for all the  created resources"
@@ -41,4 +52,14 @@ variable "prometheus_version" {
   type	= string
   description = "The version of prometheus that is downloaded and installed"
   default = "2.37.8"
+}
+variable "acme_disable_complete_propagation" {
+  type	= bool
+  description = "Disable the propagation of the ACME Let's Encrypt DNS challenge"
+  default = "false"
+}
+
+variable "acme_email_address"{
+  type = string
+  description = "The email adresse used in the ACME Let's Encrypt process "
 }
