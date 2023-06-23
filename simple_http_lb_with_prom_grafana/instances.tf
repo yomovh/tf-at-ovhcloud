@@ -5,12 +5,12 @@
 
 # Creating the instance, no SSH keys 
 resource "openstack_compute_instance_v2" "http_server" {
-  count = var.instance_nb
-  name      = "${var.resource_prefix}http_server_${count.index}" # Instance name
-  image_name  = var.image_name # Image name
-  flavor_name = var.instance_type # Instance type name
+  count       = var.instance_nb
+  name        = "${var.resource_prefix}http_server_${count.index}" # Instance name
+  image_name  = var.image_name                                     # Image name
+  flavor_name = var.instance_type                                  # Instance type name
   network {
-    name      = "${openstack_networking_network_v2.tf_lb_network.name}"
+    name = openstack_networking_network_v2.tf_lb_network.name
   }
   user_data = <<EOF
 #!/bin/bash
@@ -25,11 +25,11 @@ EOF
 }
 
 resource "openstack_compute_instance_v2" "prometheus" {
-  name      = "${var.resource_prefix}prometheus" # Instance name
-  image_name  = var.image_name # Image name
-  flavor_name = var.instance_type # Instance type name
+  name        = "${var.resource_prefix}prometheus" # Instance name
+  image_name  = var.image_name                     # Image name
+  flavor_name = var.instance_type                  # Instance type name
   network {
-    name      = openstack_networking_network_v2.tf_lb_network.name
+    name = openstack_networking_network_v2.tf_lb_network.name
   }
   user_data = <<EOF
 #!/bin/bash
