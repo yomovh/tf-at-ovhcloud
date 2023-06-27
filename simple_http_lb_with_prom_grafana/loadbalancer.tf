@@ -8,12 +8,12 @@ resource "openstack_lb_loadbalancer_v2" "tf_lb" {
   vip_subnet_id  = openstack_networking_subnet_v2.tf_lb_subnet.id
 }
 
-/*
+
 resource "openstack_lb_listener_v2" "http_listener" {
   protocol        = "HTTP"
   protocol_port   = 80
   loadbalancer_id = openstack_lb_loadbalancer_v2.tf_lb.id
-}*/
+}
 
 resource "openstack_lb_listener_v2" "https_listener" {
   protocol                  = "TERMINATED_HTTPS"
@@ -53,7 +53,20 @@ resource "openstack_lb_pool_v2" "graf_pool" {
 
 }
 
+resource "openstack_lb_l7policy_v2" "redirect_http_policy" {
+  name         = "redirect_http_policy"
+  action       = "REDIRECT_TO_URL"
+  position     = 1
+  listener_id  = openstack_lb_listener_v2.http_listener.id
+  redirect_url = "https://${var.dns_subdomain}.${var.dns_zone}"
+}
 
+resource "openstack_lb_l7rule_v2" "redirect_http_rule" {
+  l7policy_id  = openstack_lb_l7policy_v2.redirect_http_policy.id
+  type         = "PATH"
+  compare_type = "STARTS_WITH"
+  value        = "/"
+}
 resource "openstack_lb_monitor_v2" "monitor_1" {
   pool_id     = openstack_lb_pool_v2.main_pool.id
   type        = "HTTP"

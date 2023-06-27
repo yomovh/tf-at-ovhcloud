@@ -12,7 +12,11 @@ This example creates:
 - an openstack user that will be used to create the whole infrastructure
 - a private network
 - a Public Gateway and a floating IP that will be used to receive the incoming traffic on the load balancer
-- an HTTP load balancer with 3 listeners : 443 for the HTTPS load balanced traffic, 8088 for the prometheus metrics (this listener is protected to be accessible only from the private network), 80443 to expose the Grafana UI on the internet (because the instance is deployed in the private network)
+- an HTTP load balancer with 4 listeners : 
+  - 80 for HTTP traffic (that is redirected to HTTPS thanks to a L7 rule), 
+  - 443 for the HTTPS load balanced traffic, 
+  - 8088 for the prometheus metrics (this listener is protected to be accessible only from the private network),
+  - 80443 to expose the Grafana UI on the internet (because the instance is deployed in the private network)
 - 2 HTTP servers (the number of HTTP server can changed using the `instance_nb` variable) 
 - an instance that will run prometheus to scrape the metrics from the load balancer and to make them available on Grafana 
 - a Grafana managed instance on which the opensource [dashboard](https://grafana.com/grafana/dashboards/15828-octavia-amphora-load-balancer/) is deployed. 
