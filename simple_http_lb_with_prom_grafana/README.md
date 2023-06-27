@@ -12,10 +12,11 @@ This example creates:
 - an openstack user that will be used to create the whole infrastructure
 - a private network
 - a Public Gateway and a floating IP that will be used to receive the incoming traffic on the load balancer
-- an HTTP load balancer with 3 listeners : 80 for the HTTP load balanced traffic, 8088 for the prometheus metrics (this listener is protected to be accessible only from the private networ), 80443 to expose the Grafana UI on the internet (because the instance is deployed in the private network)
+- an HTTP load balancer with 3 listeners : 443 for the HTTPS load balanced traffic, 8088 for the prometheus metrics (this listener is protected to be accessible only from the private network), 80443 to expose the Grafana UI on the internet (because the instance is deployed in the private network)
 - 2 HTTP servers (the number of HTTP server can changed using the `instance_nb` variable) 
 - an instance that will run prometheus to scrape the metrics from the load balancer and to make them available on Grafana 
 - a Grafana managed instance on which the opensource [dashboard](https://grafana.com/grafana/dashboards/15828-octavia-amphora-load-balancer/) is deployed. 
+- a certificate that is retrieved from Let's Encrypt service. 
 
 The architecture is the following:
 
@@ -32,11 +33,13 @@ This script requires the following variables to be defined for the OVH provider 
 
 Look at the [ovh provider documentation](https://registry.terraform.io/providers/ovh/ovh/latest/docs) to generate the values for those variables.
 
-Additionaly the variable `TF_VAR_ovh_public_cloud_project_id` shall be set with your public cloud project id or it will be requested on script startup. You can find in this [documentation page](https://help.ovhcloud.com/csm/en-gb-public-cloud-compute-create-project?id=kb_article_view&sysparm_article=KB0050592) how to create your first public cloud project.
+Additionaly the variables are needed or will be requested on script startup :
+-  `TF_VAR_ovh_public_cloud_project_id` your public cloud project id. You can find in this [documentation page](https://help.ovhcloud.com/csm/en-gb-public-cloud-compute-create-project?id=kb_article_view&sysparm_article=KB0050592) how to create your first public cloud project.
+-  `TF_VAR_dns_zone` the OVH DNS zone where the load balancer record will be created with the created floating ip
+-  `TF_VAR_acme_email_address` the email adress used for the Let's Encrypt registration
 
 # Limitations
 
-- This simple HTTP load balancer does not use HTTPS which is standard nowadays. This choice was made to simplify the example
 - When interacting with Grafana, HTTPS is used with a self signed certificate which means that will receive a security message from your browser. 
 - The secrets that are managed by this script are stored in the state [backend](https://developer.hashicorp.com/terraform/language/settings/backends/configuration) (by default a local file). If you use this example in production, be sure to consider the state backend as tool that manages secrets.
 
