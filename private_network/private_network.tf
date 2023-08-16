@@ -20,7 +20,7 @@ variable "ovh_public_cloud_project_id" {
 }
 
 variable "vrack_id" {
-  type = string
+  type        = string
   description = "the vrack_id pn_xxxxxxx"
 }
 
