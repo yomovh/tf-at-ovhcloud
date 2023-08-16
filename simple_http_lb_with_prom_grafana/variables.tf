@@ -29,7 +29,7 @@ variable "resource_prefix" {
 variable "image_name" {
   type        = string
   description = "The image used for the instances"
-  default     = "Ubuntu 22.10"
+  default     = "Ubuntu 22.O4"
 }
 variable "instance_type" {
   type        = string

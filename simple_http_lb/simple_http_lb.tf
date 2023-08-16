@@ -28,7 +28,7 @@ variable resource_prefix {
 }
 variable image_name {
   type        = string
-  default     = "Ubuntu 22.10"
+  default     = "Ubuntu 22.04"
 }
 variable instance_type {
   type        = string
