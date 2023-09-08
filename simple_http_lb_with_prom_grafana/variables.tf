@@ -7,7 +7,7 @@ variable "ovh_public_cloud_project_id" {
 variable "openstack_region" {
   type        = string
   description = "the openstack region on which the infrastructure will be deployed. You can view the openstack regions in the OVHCloud Control Plane in the 'Quotas and Regions' panel "
-  default     = "GRA9"
+  default     = "GRA11"
 }
 
 variable "dns_subdomain" {
@@ -29,7 +29,7 @@ variable "resource_prefix" {
 variable "image_name" {
   type        = string
   description = "The image used for the instances"
-  default     = "Ubuntu 22.O4"
+  default     = "Ubuntu 22.04"
 }
 variable "instance_type" {
   type        = string
