@@ -20,7 +20,7 @@ resource "openstack_networking_subnet_v2" "tf_lb_subnet" {
   network_id      = openstack_networking_network_v2.tf_lb_network.id
   cidr            = "10.0.0.0/24"
   gateway_ip      = "10.0.0.254"
-  dns_nameservers = ["1.1.1.1", "1.0.0.1"]
+  dns_nameservers = ["213.186.33.99"]
   ip_version      = 4
 
 }

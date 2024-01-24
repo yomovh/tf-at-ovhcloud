@@ -24,7 +24,7 @@ variable "openstack_region" {
 
 variable "resource_prefix" {
   type    = string
-  default = "tf_lb_"
+  default = "tf_at_ovhcloud_simple_http_lb_"
 }
 variable "image_name" {
   type    = string
@@ -122,7 +122,7 @@ data "openstack_networking_network_v2" "ext_net" {
 }
 
 resource "openstack_networking_network_v2" "tf_lb_network" {
-  name           = "tf_lb_network"
+  name           = "${var.resource_prefix}network"
   admin_state_up = "true"
 }
 
@@ -132,7 +132,7 @@ resource "openstack_networking_subnet_v2" "tf_lb_subnet" {
   network_id      = openstack_networking_network_v2.tf_lb_network.id
   cidr            = "10.0.0.0/24"
   gateway_ip      = "10.0.0.254"
-  dns_nameservers = ["1.1.1.1", "1.0.0.1"]
+  dns_nameservers = ["213.186.33.99"]
   ip_version      = 4
 
 }
