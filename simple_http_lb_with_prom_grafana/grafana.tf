@@ -5,7 +5,7 @@ resource "ovh_cloud_project_database" "grafana" {
   service_name = var.ovh_public_cloud_project_id
   description  = "${var.resource_prefix}grafana"
   engine       = "grafana"
-  version      = "9.1"
+  version      = "10.0"
   plan         = "essential"
 
   flavor = "db1-4"
