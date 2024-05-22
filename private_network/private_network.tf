@@ -19,10 +19,6 @@ variable "ovh_public_cloud_project_id" {
   type = string
 }
 
-variable "vrack_id" {
-  type        = string
-  description = "the vrack_id pn_xxxxxxx"
-}
 
 variable "openstack_region" {
   type    = string
@@ -47,12 +43,12 @@ terraform {
   required_providers {
     openstack = {
       source  = "terraform-provider-openstack/openstack"
-      version = "~> 1.50"
+      version = "~> 2.0.0"
     }
 
     ovh = {
       source  = "ovh/ovh"
-      version = "~> 0.28"
+      version = "~> 0.45.0"
     }
   }
 }
@@ -79,10 +75,6 @@ resource "ovh_cloud_project_user" "user" {
 ########################################################################################
 #     Network
 ########################################################################################
-resource "ovh_vrack_cloudproject" "vcp" {
-  service_name = var.vrack_id
-  project_id   = var.ovh_public_cloud_project_id
-}
 
 resource "openstack_networking_network_v2" "tf_network" {
   name           = "tf_network"
