@@ -159,8 +159,13 @@ resource "openstack_networking_floatingip_associate_v2" "association" {
 ########################################################################################
 #     Loadbalancers
 ########################################################################################
+data "openstack_loadbalancer_flavor_v2" "flavor" {
+  name = "small"
+}
+
 resource "openstack_lb_loadbalancer_v2" "tf_lb" {
   name           = "terraform_lb"
+  flavor_id      = data.openstack_loadbalancer_flavor_v2.flavor.flavor_id
   vip_network_id = openstack_networking_network_v2.tf_lb_network.id
   vip_subnet_id  = openstack_networking_subnet_v2.tf_lb_subnet.id
 }

@@ -14,12 +14,10 @@ resource "ovh_cloud_project_database" "grafana" {
     network_id = openstack_networking_network_v2.tf_lb_network.id
     subnet_id  = openstack_networking_subnet_v2.tf_lb_subnet.id
   }
-}
-resource "ovh_cloud_project_database_ip_restriction" "iprestriction" {
-  service_name = var.ovh_public_cloud_project_id
-  engine       = ovh_cloud_project_database.grafana.engine
-  cluster_id   = ovh_cloud_project_database.grafana.id
-  ip           = openstack_networking_subnet_v2.tf_lb_subnet.cidr
+  ip_restrictions {
+    description = "private network subnet"
+    ip          = openstack_networking_subnet_v2.tf_lb_subnet.cidr
+  }
 }
 
 data "dns_a_record_set" "grafana" {
