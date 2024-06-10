@@ -36,7 +36,7 @@ resource "grafana_data_source" "prometheus" {
 }
 
 resource "grafana_dashboard" "octavia_dashboard" {
-  config_json = file("resources/octavia-amphora-load-balancer_rev1.json")
+  config_json = file("resources/octavia-amphora-load-balancer_rev2.json")
 }
 
 resource "ovh_cloud_project_database_user" "avnadmin" {
