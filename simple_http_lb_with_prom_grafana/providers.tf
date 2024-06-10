@@ -7,11 +7,11 @@ terraform {
   required_providers {
     openstack = {
       source  = "terraform-provider-openstack/openstack"
-      version = "~> 1.51.1"
+      version = "~> 2.0.0"
     }
     ovh = {
       source  = "ovh/ovh"
-      version = "~> 0.31.0"
+      version = "~> 0.45.0"
     }
     grafana = {
       source  = "grafana/grafana"
@@ -36,7 +36,6 @@ provider "openstack" {
   password         = ovh_cloud_project_user.user.password
   region           = var.openstack_region
   tenant_id        = var.ovh_public_cloud_project_id
-  use_octavia      = true
 }
 
 provider "grafana" {
