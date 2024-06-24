@@ -168,6 +168,9 @@ resource "openstack_networking_floatingip_associate_v2" "association" {
 ########################################################################################
 data "openstack_loadbalancer_flavor_v2" "flavor" {
   name = "small"
+  depends_on = [
+    ovh_cloud_project_user.user
+  ]
 }
 
 resource "openstack_lb_loadbalancer_v2" "tf_lb" {
