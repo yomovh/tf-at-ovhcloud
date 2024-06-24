@@ -107,6 +107,13 @@ echo 'user data end'
 EOF
   # Add dependency on router itf to be sure the instance can access internet to retrieve package in user data
   depends_on = [openstack_networking_router_interface_v2.tf_lb_router_itf_priv]
+  lifecycle {
+    # OVHcloud met régulièrement à jour l’image de base d’un OS donné afin que le client ait moins de paquets à mettre à jour après le lancement d’une nouvelle instance
+    # Pour éviter que terraform ne rencontre des problèmes avec cela, la commande ignore_changes suivante est requise.
+    ignore_changes = [
+      image_name
+    ]
+  }
 }
 
 ########################################################################################
