@@ -4,6 +4,9 @@
 ########################################################################################
 data "openstack_loadbalancer_flavor_v2" "flavor" {
   name = "small"
+  depends_on = [
+    ovh_cloud_project_user.user
+  ]
 }
 
 
