@@ -43,6 +43,11 @@ variable "instance_nb" {
   default = 2
 }
 
+variable "stream_id" {
+  type        = string
+  default = null
+  description = "the stream id to which the logs shall be sent. If null, no log subcription is created"
+}
 
 #######################################################################################
 #     Providers
@@ -57,7 +62,7 @@ terraform {
     }
     ovh = {
       source  = "ovh/ovh"
-      version = "~> 0.45.0"
+      version = "~> 0.48.0"
     }
   }
 }
@@ -213,11 +218,21 @@ resource "openstack_lb_member_v2" "member" {
   subnet_id     = openstack_networking_subnet_v2.tf_lb_subnet.id
 }
 
+########################################################################################
+#     Logs subscription if stream_id 
+########################################################################################
+resource "ovh_cloud_project_region_loadbalancer_log_subscription" "log_subscription" {
+  count           = var.stream_id != null ? 1 : 0
+  region_name     = var.openstack_region
+  loadbalancer_id = openstack_lb_loadbalancer_v2.tf_lb.id
+  kind            = "haproxy"
+  stream_id       = var.stream_id
+}
 
 ########################################################################################
 #     Outputs
 ########################################################################################
 output "lb_ip" {
   value       = openstack_networking_floatingip_v2.tf_lb_floatingip.address
-  description = "The loadbalancer public ip "
+  description = "The loadbalancer public ip"
 }
